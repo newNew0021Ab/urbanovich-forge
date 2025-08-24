@@ -1,96 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Кузница Сергея Урбановича - Дизайн система "Интеллектуального лофта" */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Основная палитра - индустриальные тона */
+    --concrete: 0 0% 12%; /* #1e1e1e - тёмно-серый бетон */
+    --steel: 0 0% 23%; /* #3a3a3a - холодная сталь */
+    --copper: 30 40% 45%; /* #b87333 - патина меди */
+    --iron: 0 0% 8%; /* #141414 - чугун */
+    --ash: 0 0% 97%; /* #f8f8f8 - пепельно-белый */
+    --dust: 0 0% 60%; /* Пыль - для подзаголовков */
+    
+    /* Акцентные свечения */
+    --glow-orange: 25 100% 50%; /* неон-оранж для hover */
+    --glow-blue: 210 100% 70%; /* холодное свечение */
+    
+    /* Текстуры и поверхности */
+    --surface-rough: 0 0% 15%;
+    --surface-polished: 0 0% 20%;
+    --surface-oxidized: 20 15% 18%;
+    
+    /* Семантические токены */
+    --background: var(--concrete);
+    --foreground: var(--ash);
+    --card: var(--steel);
+    --card-foreground: var(--ash);
+    --primary: var(--copper);
+    --primary-foreground: var(--ash);
+    --secondary: var(--steel);
+    --secondary-foreground: var(--ash);
+    --muted: var(--iron);
+    --muted-foreground: var(--dust);
+    --accent: var(--copper);
+    --accent-foreground: var(--ash);
+    --border: var(--steel);
+    --input: var(--surface-rough);
+    --ring: var(--copper);
+    
+    /* Радиусы - минималистичные */
+    --radius: 0.125rem; /* 2px - едва заметные скругления */
+    
+    /* Переходы - как механизм швейцарских часов */
+    --transition-swift: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    --transition-precise: all 0.15s cubic-bezier(0.4, 0, 1, 1);
+    
+    /* Тени - индустриальные */
+    --shadow-steel: 0 4px 20px -2px hsl(var(--iron) / 0.5);
+    --shadow-copper: 0 0 30px -5px hsl(var(--copper) / 0.3);
+    --shadow-forge: 0 8px 40px -8px hsl(var(--iron) / 0.7);
+    
+    /* Градиенты */
+    --gradient-metal: linear-gradient(135deg, hsl(var(--steel)), hsl(var(--iron)));
+    --gradient-copper: linear-gradient(135deg, hsl(var(--copper)), hsl(var(--copper) / 0.8));
+    --gradient-surface: linear-gradient(180deg, hsl(var(--surface-polished)), hsl(var(--surface-rough)));
+  }
+}
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(var(--steel) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, hsl(var(--copper) / 0.05) 0%, transparent 50%);
+  }
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  /* Типографика - точная, как гравировка */
+  .text-display {
+    @apply font-thin tracking-wider leading-tight;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  
+  .text-caption {
+    @apply font-light tracking-widest uppercase text-xs;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    opacity: 0.8;
+  }
+  
+  .text-body {
+    @apply font-normal leading-relaxed;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    line-height: 1.7;
+  }
+  
+  .text-mono {
+    @apply font-light text-sm tracking-wide;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-weight: 300;
+    opacity: 0.7;
+  }
+  
+  /* Эффекты взаимодействия */
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--glow-orange) / 0.1);
+    transform: scale(1.02);
+  }
+  
+  .hover-underline {
+    @apply relative;
+  }
+  
+  .hover-underline::after {
+    @apply absolute bottom-0 left-0 w-full h-px opacity-0 transition-all duration-300;
+    content: '';
+    background: linear-gradient(90deg, transparent, hsl(var(--copper)), transparent);
+    transform: scaleX(0);
+  }
+  
+  .hover-underline:hover::after {
+    @apply opacity-100;
+    transform: scaleX(1);
+  }
+  
+  /* Текстуры */
+  .texture-concrete {
+    position: relative;
+  }
+  
+  .texture-concrete::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 80%, hsl(var(--steel) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--steel) / 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .texture-steel {
+    background: linear-gradient(135deg, hsl(var(--steel)), hsl(var(--surface-polished)));
+  }
+  
+  /* Анимации - механические, точные */
+  .animate-forge {
+    animation: forge 3s ease-in-out infinite;
+  }
+  
+  @keyframes forge {
+    0%, 100% { opacity: 0.8; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-2px); }
+  }
+  
+  .animate-spark {
+    animation: spark 2s linear infinite;
+  }
+  
+  @keyframes spark {
+    0% { opacity: 0; transform: translateY(10px) scale(0.8); }
+    50% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-10px) scale(0.8); }
+  }
+  
+  /* Кастомные скроллбары */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--iron));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--steel));
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--copper));
   }
 }
 
