@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400&display=swap');
+
+:root {
+  --background: #1e1e1e;
+  --steel: #3a3a3a;
+  --copper: #b87333;
+  --text: #f8f8f8;
+  --text-muted: rgba(248,248,248,0.6);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Source Serif Pro', serif;
+  background-color: var(--background);
+  color: var(--text);
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(184, 115, 51, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(58, 58, 58, 0.1) 0%, transparent 50%),
+    var(--background);
+  background-attachment: fixed;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjAzIi8+PC9zdmc+");
+  pointer-events: none;
+  z-index: -1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Typography Classes */
+.text-display {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+
+.text-serif {
+  font-family: 'Source Serif Pro', serif;
+  font-weight: 400;
+}
+
+.text-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Hover Effects */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
+}
+
+/* Glass Effect */
+.glass {
+  backdrop-filter: blur(10px);
+  background: rgba(58, 58, 58, 0.1);
+  border: 1px solid rgba(184, 115, 51, 0.2);
+}
+
+/* Metal Frame Effect */
+.metal-frame {
+  position: relative;
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  border: 1px solid #4a4a4a;
+}
+
+.metal-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(184, 115, 51, 0.1) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--steel);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--copper);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4a455;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 2px;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}

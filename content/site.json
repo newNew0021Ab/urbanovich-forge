@@ -1,0 +1,31 @@
+{
+  "businessName": "Кузнечная мастерская Сергея Урбановича",
+  "contact": {
+    "name": "Матвей",
+    "phone": "+375297855871",
+    "email": "sergeiurbanovich@yandex.by",
+    "telegram": "@sergeiurbanovich",
+    "instagram": "@sergeiurbanovichforge"
+  },
+  "avgOrderValue": 1500,
+  "regions": ["Гродно", "Минск", "Витебск", "Гомель", "Брест", "Могилёв"],
+  "photosAvailable": true,
+  "adBudget": 500,
+  "location": {
+    "city": "Гродно",
+    "country": "Беларусь",
+    "workingAreas": "Вся Беларусь"
+  },
+  "experience": "18+ лет",
+  "completedProjects": "500+",
+  "guarantee": "5 лет",
+  "workingHours": "Пн-Пт, 09:00-18:00",
+  "services": [
+    "Ворота и калитки",
+    "Перила и лестницы", 
+    "Мебель и интерьер",
+    "Мангалы и барбекю",
+    "Козырьки и навесы",
+    "Художественная ковка"
+  ]
+}
