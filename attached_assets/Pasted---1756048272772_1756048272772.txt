@@ -1,0 +1,185 @@
+Цель: создать многостраничный премиальный сайт на русском языке для «Кузнечная мастерская Сергея Урбановича» (Гродно, работает по всей Беларуси). Сделать современный production-ready фронтенд (Next.js 14 + App Router, TailwindCSS, Framer Motion) с красивым, «интеллектуальный лофт» дизайном — серьёзно, тихо, понятный UX/UI, но *чуть более интересный* визуально (разнообразие сеток, асимметричная галерея, тонкие параллакс-эффекты, микровзаимодействия).
+
+Просьба: выполняй как полноценный репозиторий — создай структуру файлов, наполни контентом (заглушки + реальные данные: имя мастера «Сергей Урбанович», контакт Матвей, средний чек 1500 BYN, работы по всей Беларуси, 100+ фото — используй локальные изображения если доступны), подготовь README с командой запуска.
+
+---
+
+### Технологии и требования
+- Next.js 14 (App Router)
+- Tailwind CSS (включить базовые конфигурации и кастомную палитру)
+- Framer Motion для анимаций
+- React-Image/next/image (оптимизация изображений)
+- Lightbox для просмотра изображений (например, yet-another-lightbox или легкая своя реализация)
+- Формы: реализация серверless API (Next.js app /api/contact) с заглушкой — отправку на электронную почту реализовать через переменные окружения (SMTP/SendGrid) — если переменные не заданы, сохранять заявки в `/data/requests.json`
+- Контент: локальные Markdown/JSON файлы в `/content` (portfolio, cases, services, regions, faq, blog)
+- SEO: мета-теги, Open Graph, sitemap generation route `/api/sitemap` (статический)
+- Accessibility: ARIA, keyboard navigation для lightbox, контраст > 4.5:1
+
+---
+
+### Дизайн: визуальные правила (и сделать «чуть более интересно»)
+- Палитра:
+  - Фон: #1e1e1e (с subtle текстурой — подключить фоновое изображение/шум в CSS)
+  - Сталь: #3a3a3a
+  - Патина меди (hover/accents): #b87333 (использовать sparingly)
+  - Текст: #f8f8f8 ; подзаголовки: rgba(248,248,248,0.6)
+- Типографика:
+  - Заголовки: Helvetica Now Display Light / Neue Haas Unica Light (если нет — использовать system font fallback + крупный letter-spacing)
+  - Текст: Source Serif Pro или Charter (засечки) — подключить Google Fonts или локальные файлы
+  - Подписи: IBM Plex Mono Light
+- Анимации/интерактивы (чуть более интересно):
+  - hero video (или изображение с subtle particle sparks animation)
+  - асимметричная галерея (masonry/variable row heights) с плавной рефлоу анимацией при фильтрации
+  - параллакс-слой над hero (легкое смещение искр при скролле)
+  - hover: тонкое увеличение (scale 1.02) + патина меди glow 5% на hover
+  - карточки услуг: glass/metal frame, при hover — раскрытие дополнительного описания (slide-up)
+  - subtle cursor-follow light (по скроллу/hover) — не агрессивно
+- Текстуры: включить 2–3 фона (шлифованная сталь, дуб, бумага с масляным пятном) и применять их секционно с градиентной маской, чтобы не «шумить» читабельность.
+
+---
+
+### Структура файлов (точно сделай так)
+/ (repo root)
+├─ package.json
+├─ next.config.js
+├─ tailwind.config.js
+├─ postcss.config.js
+├─ README.md
+├─ public/
+│ ├─ assets/
+│ │ ├─ hero-video.mp4 (или hero.jpg placeholder)
+│ │ ├─ textures/steel.jpg
+│ │ ├─ textures/wood.jpg
+│ │ └─ images/ (подставить реальные фото, если есть)
+├─ content/
+│ ├─ site.json (общая инфа: BusinessName, ContactName, AvgOrderValue, Regions)
+│ ├─ portfolio/
+│ │ ├─ item1.md
+│ │ ├─ item2.md
+│ ├─ cases/
+│ │ ├─ case-xxx.md
+│ ├─ services/
+│ │ ├─ voryta.md
+│ │ └─ perila.md
+│ ├─ regions/
+│ │ ├─ grodno.md
+│ │ └─ minsk.md
+│ ├─ blog/
+│ │ └─ first-post.md
+│ ├─ faq.json
+│ └─ privacy.md
+├─ app/
+│ ├─ layout.jsx
+│ ├─ globals.css
+│ ├─ page.jsx (главная)
+│ ├─ portfolio/
+│ │ └─ page.jsx
+│ ├─ services/
+│ │ └─ [slug]/page.jsx
+│ ├─ cases/
+│ │ └─ [slug]/page.jsx
+│ ├─ about/
+│ │ └─ page.jsx
+│ ├─ regions/
+│ │ └─ [slug]/page.jsx
+│ ├─ contact/
+│ │ └─ page.jsx
+│ ├─ order/
+│ │ └─ page.jsx (страница «Заказать замер / Получить смету» — лендинг)
+│ └─ api/
+│ └─ contact/route.js (POST handler)
+├─ components/
+│ ├─ Header.jsx
+│ ├─ Footer.jsx
+│ ├─ Hero.jsx
+│ ├─ PortfolioGrid.jsx
+│ ├─ PortfolioCard.jsx
+│ ├─ Lightbox.jsx
+│ ├─ ServiceCard.jsx
+│ ├─ ProcessStepper.jsx
+│ ├─ ContactForm.jsx
+│ └─ RegionList.jsx
+└─ data/
+└─ requests.json (runtime storage for form submissions if no SMTP configured)
+
+yaml
+Copy
+Edit
+
+---
+
+### Контент / заполнение (ожидается от агента)
+- Создай `content/site.json` с заполненными полями:
+  - businessName: "Кузнечная мастерская Сергея Урбановича"
+  - contact: { name: "Матвей", phone: "+375297855871", email: "sergeiurbanovich@yandex.by" }
+  - avgOrderValue: 1500
+  - regions: ["Гродно", "Минск", "Витебск", "Гомель", "Брест", "Могилёв"]
+  - photosAvailable: true
+  - adBudget: 500
+- Создай в `content/services/*` минимум 4 md файлов (ворота, перила, мебель, мангалы) с описаниями и ориентировочными ценами в BYN (используй 700/1200/1500 диапазоны из разговора).
+- Добавь 3 примера кейсов (`content/cases/*`) с 5 фото (если нет реальных — используй placeholders из /public/assets/images).
+- Добавь 12–15 карточек портфолио (можно дублировать с разными мета) для демонстрации фильтрации.
+- Наполни `content/faq.json` 5 вопросами и ответами о замерах/сроках/оплате/выезде.
+- privacy.md: базовый текст политики конфиденциальности.
+
+---
+
+### Функционал страниц (поведение)
+- **Главная**: hero (video fallback image), 3 превью кейса, блок "Как проходит работа" (4 шага с иконками), один отзыв, CTA к order page.
+- **Портфолио**: асимметричная сетка, фильтры по категориям, при клике открывается lightbox/страница кейса.
+- **Услуги**: карточная сетка 2x3, при клике — страница услуги с описанием, ориентиром цены, CTA «Заказать замер».
+- **Кейс**: подробности проекта: задачи, решения, материалы, фотографии, видео, отзыв клиента, ориентир цены.
+- **О мастерской**: история, фото мастерской, команда (если есть), гарантии, география работ (карта — можно встроить iframe Google Maps с точкой Гродно или статическая карта).
+- **География / регионы**: страницы для Минск, Гродно (минимум 2), уникальные тексты + локальные кейсы.
+- **Контакты**: контакты и форма, кнопки click-to-chat (tel: и telegram link).
+- **Order (лендинг)**: минималистичный высоко-конверсионный лендинг — hero + короткий набор доверия + форма с полями: имя, телефон*, город*, тип работы*, кратко, прикрепить фото (optional) — при отправке POST /api/contact.
+- **Blog**: простая страница списком постов (md -> html).
+- **FAQ / privacy** pages.
+
+---
+
+### Form backend & storage
+- Создай `app/api/contact/route.js` который:
+  - При POST: валидирует поля (телефон обязателен), при наличии SMTP/SendGrid env (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS или SENDGRID_API_KEY) отправляет email на contact.email из site.json.
+  - Если env vars не заданы, сохраняет заявку в `data/requests.json` и возвращает успешный ответ.
+  - Отправляет (в любом случае) webhook-уведомление в консоль (Logger) и пишет в `data/requests.json`.
+
+---
+
+### SEO & sitemap
+- Добавь Head компоненты: title, meta description, og:image, canonical url.
+- Создай `/api/sitemap` который генерирует sitemap.xml на основе файлов в `/content` (portfolio, services, cases, regions, blog).
+
+---
+
+### Автозапуск / README
+- В README укажи:
+  - Команды: `npm install` / `npm run dev` / `npm run build` / `npm start`
+  - Как настроить env vars для SMTP
+  - Где находятся контент-файлы `/content`
+  - Как добавить новые кейсы (шаблон md)
+  - Как деплоить на Vercel (рекомендация)
+- Убедись, что проект стартует (localhost:3000).
+
+---
+
+### Дополнительно (усиление дизайна — «чуть интереснее»)
+- Сделай альтернативные layout-режимы для портфолио: grid / masonry / full-bleed hero-case
+- Добавь тонкую анимацию искр в hero (canvas/particles) — graceful fallback for low-perf
+- Добавь "micro-interaction" — копирование номера телефона по клику и небольшая нотификация toast
+- При фильтрации портфолио — animated rearrange (Framer Motion layout transitions)
+- При первом входе показывать unobtrusive cookie banner (accept -> sets localStorage)
+
+---
+
+### Ожидаемый результат от агента
+1. Полностью рабочий frontend на Next.js с описанной структурой и стилем.  
+2. Заполненный `/content` с демонстрационными данными (используй реальные данные: Сергей/Матвей/1500 BYN).  
+3. README с инструкциями по запуску и деплою.  
+4. Коммиты в репозиторий (логичная история коммитов — init, layout, portfolio, services, api-contact, styling).  
+5. Короткий список TODO / дальнейших улучшений (например: подключить внешнюю CMS, интеграция email).
+
+---
+
+Если что-то неясно — действуй по лучшему инженерному решению и оставь комментарии в коде.  
+Спасибо — делай аккуратно и эстетично: сайт должен выглядеть как «тихая, мощная машина», не кричащая, но внушающая доверие.
